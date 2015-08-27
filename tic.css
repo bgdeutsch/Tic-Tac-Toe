@@ -3,34 +3,67 @@
 body {
   background-color: #E3E3E3;
 }
-/*Header - inlude name, email, and "Play tic-tac-toe"*/
+
 .header {
   background-color: black;
   position: fixed;
   width: 100%;
-  margin: auto;
+  border: solid white 2px;
+  top: 0px;
+  height: 100px;
 }
 
 h1 {
-  font-family: "Josefin Sans", sans-serif;
-  color: #86DFF7;
-  font-size: 5em;
+  font-family: 'Josefin Sans', sans-serif;
+  color: #90C3D4;
+  font-size: 4em;
   text-align: center;
+  font-weight: bold;
+  padding: 7px;
 }
 
 .header p {
-  font-family: "Josefin Sans", sans-serif;
+   font-family: 'Josefin Sans', sans-serif;
+   color: white;
+   font-size: 26px;
+   text-align: center;
+   font-weight: bold;
+   margin: -6px;
+
+}
+
+.gameBoard {
+  border: solid black 5px;
+  width: 150px;
+  margin: 0 auto;
+  width: 500px;
+  height: 500px;
+  margin-top: 125px;
+}
+
+h3 {
   color: white;
-  font-size: 25px;
+  font-size: 100px;
   text-align: center;
-  font-weight: bold;
 }
 
-.column {
-  width: 30%;
-  border: solid black 3px;
+td {
+   height: 160px;
+   width: 160px;
+   overflow: hidden;
+   white-space: nowrap;
 }
 
 
+img{
+  width: 60px;
+  height: auto;
+}
 
-/*3x3 Grid using Bootstrap*/
+tr {
+  border: solid black 6px;
+}
+
+td{
+  border: solid black 6px;
+}
