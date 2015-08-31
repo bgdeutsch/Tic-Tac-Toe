@@ -8,25 +8,23 @@ $(document).ready(function(){
   var currentPlayer;
   var gameBoard = ['', '', '', '', '', '', '', '', ''];
   var turn = 1;
-  var isGameOver = false;
-  var drawTheX;
+  var drawXorO;
+  //Declaring somem variables in a global space for the application.
 
 
 
   if(thePlayer === "X") {
     playerOne = "X";
     playerTwo = "O";
-    console.log(playerOne);
-    console.log(playerTwo);
   }else if(thePlayer === "O") {
     playerOne = "O";
     playerTwo = "X";
-    console.log(playerOne);
-    console.log(playerTwo);
   }else{
     alert("I'm sorry, you've entered an incorrect value.  Please choose X or O");
     location.reload();
   }
+  //Allowing player 1 to decide between "X" or "O" as his character.
+  //Storing it as a variable, and added a catch for the user inputting wrong value.
 
 
   $(".board-space").click(function(event){
@@ -37,6 +35,8 @@ $(document).ready(function(){
     if (gameBoard[cellNumber] !== ""){
 
       alert("Sorry, that space has already been taken.  Try again.");
+    //Adds click event for game play -- if user attempts to click a board space
+    //That has already been taken, an error alert will pop up.
 
     } else {
 
@@ -44,38 +44,40 @@ $(document).ready(function(){
 
         currentPlayer = playerTwo;
 
-        console.log(currentPlayer);
-
-
-        var drawTheX = $("<h3></h3>");
+        var drawXorO = $("<h3></h3>");
 
         currentCell.css("background-color", "black");
 
-        drawTheX.text(currentPlayer);
+        drawXorO.css("color", "#DDF587");
 
-        currentCell.append(drawTheX);
+        drawXorO.text(currentPlayer);
+
+        currentCell.append(drawXorO);
 
         gameBoard.splice(cellNumber, 1, currentPlayer);
-
-        console.log(gameBoard);
 
         checkWinner();
 
         turn++;
 
+    //Basic gameplay activity - user clicks on space, (if available)
+    //Their symbol will be appended to the board, and stored in the gameBoard array.
+    //The application will then check to see if a win condition has been satisfied,
+    //And switch turns if not.
+
 
       } else {
         currentPlayer = playerOne;
-        console.log(currentPlayer);
-        //logic for playerOne
 
-        var drawTheX = $("<h3></h3>");
+        var drawXorO = $("<h3></h3>");
 
         currentCell.css("background-color", "black");
 
-        drawTheX.text(currentPlayer);
+        drawXorO.css("color", "#9F87F5");
 
-        currentCell.append(drawTheX);
+        drawXorO.text(currentPlayer);
+
+        currentCell.append(drawXorO);
 
         gameBoard.splice(cellNumber, 1, currentPlayer);
 
@@ -90,6 +92,10 @@ $(document).ready(function(){
 
 
   function checkWinner(){
+  //Adds a function that will automatically go through each winning possibility,
+  //and decide if the game has ended.  If not, it will recognize a tie if each board
+  //space has been taken.
+
     if(
        (gameBoard[0] === gameBoard[1] && gameBoard[1] === gameBoard[2] && gameBoard[0] !== "") ||
        (gameBoard[3] === gameBoard[4] && gameBoard[4] === gameBoard[5] && gameBoard[3] !== "") ||
@@ -100,8 +106,8 @@ $(document).ready(function(){
        (gameBoard[0] === gameBoard[4] && gameBoard[4] === gameBoard[8] && gameBoard[0] !== "") ||
        (gameBoard[2] === gameBoard[4] && gameBoard[4] === gameBoard[6] && gameBoard[2] !== "")
      ){
-       alert("Game over! " +gameBoard[0]+ " is the winner!");
-       location.reload();
+       alert("Game over! " +currentPlayer+ " is the winner!");
+       toPlayAgain();
 
      } else if (
       (gameBoard[0] !== "") &&
@@ -114,7 +120,28 @@ $(document).ready(function(){
       (gameBoard[7] !== "") &&
       (gameBoard[8] !== "")){
         alert("Tie Game!");
-        location.reload();
+        toPlayAgain();
       }
+    }
+
+    function toPlayAgain(){
+    //Adds a feature where user will be prompted if they would like to play again.
+    //If they choose yes, the game will reload.  If not, the board state will remain.
+
+      var userToPlayAgain = prompt("Do you want to play again? [Y/N]");
+      var userAnswer = userToPlayAgain.toUpperCase();
+
+      if(userAnswer === "Y") {
+         location.reload();
+
+      }else if(userAnswer === "N") {
+
+        alert("Thanks for playing!");
+
+      }else{
+        alert("You've entered an incorrect key, please choose [Y]es or [N]o");
+        toPlayAgain();
+      }
+
     }
   });   //Closes jQuery Wrap
